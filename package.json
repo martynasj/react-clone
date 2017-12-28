@@ -41,14 +41,5 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
-  },
-  "dependencies": {
-    "classnames": "^2.2.5",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
-    "redux": "^3.7.2",
-    "redux-actions": "^2.2.1"
   }
 }
