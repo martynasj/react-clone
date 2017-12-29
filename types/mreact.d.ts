@@ -1,8 +1,14 @@
 declare namespace MReact {
-  export interface Element {
-    tag: string
-    children: ChildrenType
-  }
-
-  export type ChildrenType = string|string[]|Element[]
+  export type ChildrenType = string|string[]|Element|Element[]|null
 }
+
+declare type PrimitiveElement = string
+
+declare interface VirtualElement {
+  type: string
+  props: {
+    children?: MReact.ChildrenType
+  }
+}
+
+declare type AllowedElement = VirtualElement|PrimitiveElement

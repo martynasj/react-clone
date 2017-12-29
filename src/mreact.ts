@@ -1,8 +1,8 @@
 type ComponentOrHTMLTag = keyof HTMLElementTagNameMap
-type PropsType = object
+type PropsType = null|undefined|{ children?: MReact.ChildrenType }
 
 export default {
-  createElement(elementTag: ComponentOrHTMLTag, props: PropsType, children: MReact.ChildrenType): MReact.Element {
+  createElement(elementTag: ComponentOrHTMLTag, props: PropsType, children: MReact.ChildrenType): VirtualElement {
     return createVirtualElement(elementTag, props, children)
   }
 }
@@ -11,10 +11,15 @@ function createVirtualElement(
   elementTag: ComponentOrHTMLTag,
   props: PropsType,
   children: MReact.ChildrenType
-): MReact.Element {
+): VirtualElement {
   const virtualElement = {
-    tag: elementTag,
-    children,
+    type: elementTag,
+    props: props || {},
   }
+
+  if (children) {
+    virtualElement.props.children = children
+  }
+
   return virtualElement
 }

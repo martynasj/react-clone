@@ -11,13 +11,6 @@ module.exports = {
   context: sourcePath,
   entry: {
     main: './index.tsx',
-    vendor: [
-      'react',
-      'react-dom',
-      'react-redux',
-      'react-router',
-      'redux'
-    ]
   },
   output: {
     path: outPath,
@@ -83,11 +76,6 @@ module.exports = {
   plugins: [
     new Webpack.DefinePlugin({
       'process.env.NODE_ENV': isProduction === true ? JSON.stringify('production') : JSON.stringify('development')
-    }),
-    new Webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: 'vendor.bundle.js',
-      minChunks: Infinity
     }),
     new Webpack.optimize.AggressiveMergingPlugin(),
     new ExtractTextPlugin({
