@@ -6,26 +6,28 @@ import { resolveChildren} from './utils'
  */
 export function render(virtualElement: VirtualElement, domNode: HTMLElement) {
   const virtualDom = createVirtualDom(virtualElement)
-  console.log(virtualDom)
-  // const domTree = renderHtmlTree(resolvedHtmlTree, domNode)
+  renderHtmlTree(virtualDom, domNode)
 }
 
 
-function renderHtmlTree(virtualHtmlElement, domNode: HTMLElement) {
-  const domElement = createDomElement(virtualHtmlElement)
-  renderElementIntoDom(domElement, domNode)
-  const resolvedChildren = resolveChildren(virtualHtmlElement.children)
-  resolvedChildren.forEach(child => renderHtmlTree(child, domElement))
+function renderHtmlTree(virtualNode: VirtualNode, domNode: HTMLElement) {
+  const domElement = createDomElement(virtualNode)
+  renderHTMLElementIntoDom(domElement, domNode)
+
+  if (typeof virtualNode === 'object' && virtualNode.children) {
+    const resolvedChildren = resolveChildren(virtualNode.children)
+    resolvedChildren.forEach(child => renderHtmlTree(child, domElement as HTMLElement))
+  }
 }
 
-function renderElementIntoDom(domElement, parentNode) {
+function renderHTMLElementIntoDom(domElement: HTMLElement|Text, parentNode: HTMLElement) {
   parentNode.appendChild(domElement)
 }
 
-function createDomElement(virtualHtmlElement): HTMLElement {
-  const newDomElement = document.createElement(virtualHtmlElement.tag)
-  if (virtualHtmlElement.innerText) {
-    newDomElement.innerText = virtualHtmlElement.innerText
+function createDomElement(virtualNode: VirtualNode): HTMLElement|Text {
+  if (typeof virtualNode === 'object') {
+    return document.createElement(virtualNode.tag)
+  } else {
+    return document.createTextNode(virtualNode.toString())
   }
-  return newDomElement
 }
