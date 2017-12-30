@@ -1,14 +1,17 @@
-declare namespace MReact {
-  export type ChildrenType = string|string[]|Element|Element[]|null
-}
+// React types
 
-declare type PrimitiveElement = string
+declare type VirtualElementFunctionType = (props) => any
+declare type VirtualElementType = number|string|VirtualElementFunctionType
 
-declare interface VirtualElement {
-  type: string
+declare interface VirtualElementComplex {
+  type: VirtualElementType
   props: {
-    children?: MReact.ChildrenType
+    children: Array<string|number|VirtualElement>
   }
 }
 
-declare type AllowedElement = VirtualElement|PrimitiveElement
+declare type VirtualElement = VirtualElementComplex|string|number
+
+
+// React DOM types
+// ...............
