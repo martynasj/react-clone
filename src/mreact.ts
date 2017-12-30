@@ -24,7 +24,7 @@ export default {
  * Converts component tree into virtual html valid tree
  * (leaves only native dom nodes, without user defined custom components)
  */
-export function createVirtualDom(virtualElement: VirtualElement) {
+export function createVirtualDom(virtualElement: VirtualElement): VirtualNode {
   // For primitive elements we just return that same element
   if (typeof virtualElement === 'string' || typeof virtualElement === 'number') {
     return virtualElement
